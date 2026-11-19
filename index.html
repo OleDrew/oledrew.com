@@ -3,20 +3,143 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>oledrew.com</title>
-<meta name="robots" content="noindex">
+<title>Ole Drew — Independent Madman</title>
+<meta name="description" content="Ole Drew makes games, software and stories from the homestead. There's always a method to the Madness.">
+<meta property="og:title" content="Ole Drew">
+<meta property="og:description" content="Games, software and stories from the homestead.">
+<meta property="og:image" content="https://oledrew.com/img/share.jpg">
+<meta property="og:url" content="https://oledrew.com/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#15180F">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="preload" href="fonts/zilla-slab-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <style>
-  html, body { height: 100%; margin: 0; }
-  body { display: grid; place-items: center; background: #121815; color: #e8e4d8;
-         font-family: system-ui, -apple-system, "Segoe UI", sans-serif; text-align: center; }
-  h1 { font-weight: 600; font-size: clamp(1.5rem, 4vw, 2.25rem); margin: 0 0 .5rem; }
-  p { margin: 0; color: #a8a596; }
+  @font-face { font-family: "Zilla Slab"; src: url("fonts/zilla-slab-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Inter"; src: url("fonts/inter-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Inter"; src: url("fonts/inter-600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Zilla Slab"; src: url("fonts/zilla-slab-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+  :root {
+    --treeline: #15180F; --olive: #232818; --fence: #3A3D26;
+    --cloud: #ECEBE5; --overcast: #A1A29B; --amber: #F2A93B; --amber-hover: #FFBE5C;
+    --display: "Zilla Slab", Bitter, Georgia, serif;
+    --sans: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --pad: clamp(20px, 5vw, 64px);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--treeline); color: var(--cloud); font: 400 17px/1.6 var(--sans); }
+  a { color: var(--amber); text-decoration: none; }
+  a:hover { color: var(--amber-hover); }
+  a:focus-visible, .btn:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+  /* Header */
+  .hero { position: relative; min-height: min(88vh, 760px); display: flex; flex-direction: column;
+          background: url("img/header.jpg") center 35% / cover no-repeat; }
+  .hero::before { content: ""; position: absolute; inset: 0;
+          background:
+            linear-gradient(to bottom, rgba(21,24,15,.75) 0%, rgba(21,24,15,0) 22%),
+            linear-gradient(to top, var(--treeline) 0%, rgba(21,24,15,0) 40%),
+            linear-gradient(to right, rgba(21,24,15,.82) 0%, rgba(21,24,15,.55) 40%, rgba(21,24,15,0) 70%); }
+  .hero > * { position: relative; }
+  nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px var(--pad); }
+  .logo { font: 700 24px/1 var(--display); letter-spacing: .14em; color: var(--cloud); white-space: nowrap; }
+  .logo:hover { color: var(--cloud); }
+  nav ul { display: flex; gap: 32px; list-style: none; margin: 0; padding: 0; }
+  nav ul a { color: var(--cloud); font-size: 16px; }
+  nav ul a:hover { color: var(--amber); }
+  .hero-text { margin-top: auto; padding: 0 var(--pad) clamp(56px, 10vh, 110px); max-width: 760px; }
+  h1 { margin: 0; font: 700 clamp(56px, 10vw, 112px)/.95 var(--display); letter-spacing: .08em; }
+  .title-line { margin: 18px 0 0; font: 600 clamp(14px, 1.6vw, 19px)/1.2 var(--sans); letter-spacing: .3em; color: var(--amber); text-transform: uppercase; }
+  .tagline { margin: 14px 0 0; font: italic 400 clamp(20px, 2.4vw, 28px)/1.35 var(--display); color: var(--cloud); }
+  .buttons { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+  .btn { display: inline-block; padding: 14px 24px; border-radius: 8px; font: 600 17px/1 var(--sans); border: 2px solid var(--amber); }
+  .btn-primary { background: var(--amber); color: var(--treeline); }
+  .btn-primary:hover { background: var(--amber-hover); border-color: var(--amber-hover); color: var(--treeline); }
+  .btn-secondary { color: var(--amber); }
+
+  /* Cards */
+  main { padding: 0 var(--pad); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin: 8px 0 0; }
+  .card { background: var(--olive); border: 2px solid var(--fence); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; }
+  .card::before { content: ""; width: 44px; height: 4px; background: var(--amber); margin-bottom: 18px; }
+  .card h2 { margin: 0; font: 700 32px/1.15 var(--display); }
+  .card p { margin: 10px 0 24px; color: var(--overcast); }
+  .card a { margin-top: auto; font-weight: 600; }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1fr; gap: 12px; max-width: 760px; padding: 88px 0 24px; scroll-margin-top: 24px; }
+  .about h2 { margin: 0; font: 700 40px/1.1 var(--display); }
+  .about p { margin: 0; color: var(--cloud); }
+  .about .muted { color: var(--overcast); }
+
+  footer { margin-top: 72px; padding: 32px var(--pad) 48px; border-top: 2px solid var(--fence); display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; color: var(--overcast); font-size: 15px; }
+  footer .slogan { font: italic 400 18px/1.4 var(--display); color: var(--cloud); }
+
+  @media (max-width: 640px) {
+    nav ul { gap: 18px; }
+    .logo { font-size: 19px; letter-spacing: .1em; }
+    nav ul li.hide-sm { display: none; }
+    .hero::before { background:
+            linear-gradient(to bottom, rgba(21,24,15,.75) 0%, rgba(21,24,15,0) 25%),
+            linear-gradient(to top, var(--treeline) 0%, rgba(21,24,15,.35) 55%, rgba(21,24,15,.2) 100%); }
+  }
 </style>
 </head>
 <body>
+  <header class="hero">
+    <nav aria-label="Main">
+      <a class="logo" href="#top" id="top">OLE DREW</a>
+      <ul>
+        <li><a href="https://ole-drew.itch.io">Games</a></li>
+        <li class="hide-sm"><a href="https://independentmadman.com">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="mailto:andrew@oledrew.com">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="hero-text">
+      <h1>OLE DREW</h1>
+      <p class="title-line">Independent Madman</p>
+      <p class="tagline">Games, software and stories from the homestead.</p>
+      <div class="buttons">
+        <a class="btn btn-primary" href="https://ole-drew.itch.io">See my games</a>
+        <a class="btn btn-secondary" href="#about">About me</a>
+      </div>
+    </div>
+  </header>
+
   <main>
-    <h1>oledrew.com</h1>
-    <p>Coming soon.</p>
+    <section class="cards" aria-label="What I do">
+      <article class="card">
+        <h2>Games</h2>
+        <p>Dead Man's Hand, a Wild West poker game, is out now. A mansion mystery and a space run-and-gun are in the works.</p>
+        <a href="https://ole-drew.itch.io">Play on itch.io →</a>
+      </article>
+      <article class="card">
+        <h2>Work with me</h2>
+        <p>Small software, digital content and marketing, for people who need one person who can do all three.</p>
+        <a href="https://independentmadman.com">Start a project →</a>
+      </article>
+      <article class="card">
+        <h2>The homestead</h2>
+        <p>Storms, pasture and a couple of good dogs. It's where all of this gets made.</p>
+        <a href="#about">Read more →</a>
+      </article>
+    </section>
+
+    <section class="about" id="about">
+      <h2>About</h2>
+      <p>I'm Andrew, and I go by Ole Drew. I spent ten years in the Air Force, earned an MBA with a focus on marketing, and now build games and digital things from my place in the country.</p>
+      <p>I like taking on a lot of different projects with a lot of different tools. It might look like madness from the outside. There's always a method to it.</p>
+      <p class="muted">Want to talk? Email <a href="mailto:andrew@oledrew.com">andrew@oledrew.com</a>.</p>
+    </section>
   </main>
+
+  <footer>
+    <span class="slogan">There's always a method to the Madness.</span>
+    <span><a href="mailto:andrew@oledrew.com">andrew@oledrew.com</a> · <a href="https://ole-drew.itch.io">itch.io</a> · © 2026 Ole Drew</span>
+  </footer>
 </body>
 </html>
